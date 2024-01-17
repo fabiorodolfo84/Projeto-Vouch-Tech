@@ -1,18 +1,24 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UnidadeController;
+use App\Http\Controllers\ColaboradorController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
-Route::get('/', function () {
-    return view('welcome');
+    Route::resource('unidades', UnidadeController::class);
+    Route::resource('colaboradores', ColaboradorController::class);
+    Route::resource('unidades', UnidadeController::class);
+
+
+Route::resource('unidades', UnidadeController::class);
+
+
+
+    Route::get('/', function () {
+        try {
+            DB::connection()->getPdo();
+            echo "Conexão efetuada com sucesso. " . DB::connection()->getDatabaseName();
+        } catch (\Exception $e) {
+            die('Não foi possivel conectar a base de dados. Erro: '. $e->getMessage());
+        }
 });
